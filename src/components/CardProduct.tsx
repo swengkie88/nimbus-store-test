@@ -1,12 +1,17 @@
 'use client'
 
-export const CardProduct = ({ product }) => {
+import Image from "next/image"
+import { Product } from "types/product";
+
+interface CardProductProps {
+    product: Product;
+}
+
+export default function CardProduct({ product }: CardProductProps) {
     return (
         <div className="grow shrink basis-0 flex-col justify-center items-center gap-4 inline-flex">
-            {/* <img className="h-80 relative rounded-xl" src="https://via.placeholder.com/248x320" /> */}
-            {/* <img className="h-80 relative rounded-xl" src={product.image} /> */}
             <div className="h-80 flex items-center relative rounded-xl overflow-hidden">
-                <img className="w-full h-full object-contain object-center" src={product.image} alt="" />
+                <Image className="w-full h-full object-contain object-center" width={100} height={100} src={product.image} alt="" />
             </div>
 
             <div className="flex-col justify-center items-center gap-3 flex">

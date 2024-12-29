@@ -1,10 +1,19 @@
-import { CardProduct } from "@/components/CardProduct";
+import CardProduct from "@/components/CardProduct";
 import { Sidebar } from "@/components/Sidebar";
-import Image from "next/image";
+import { Product } from "types/product";
+
+// Fetch data from Fake Store API
+async function getProducts(): Promise<Product[]> {
+    const res = await fetch(`https://fakestoreapi.com/products`, { cache: 'no-store' });
+    if (!res.ok) {
+        throw new Error('Failed to fetch products');
+    }
+    const products: Product[] = await res.json();
+    return products;
+}
 
 export default async function Catalog() {
-    const data = await fetch('https://fakestoreapi.com/products')
-    const products = await data.json()
+    const products = await getProducts();
 
     return (
         <div className="h-[1792px] px-10 py-[60px] flex-col justify-start items-center gap-[60px] inline-flex overflow-hidden">
@@ -30,7 +39,7 @@ export default async function Catalog() {
                     </div>
                     <div className="self-stretch h-[1432px] flex-col justify-start items-start gap-10 flex">
                         <div className="grid grid-cols-4 gap-6 self-stretch justify-start items-center inline-flex">
-                            {products.map((product:any) => (
+                            {products.map((product) => (
                                 <CardProduct key={product.id} product={product} />
                             ))}
                         </div>
