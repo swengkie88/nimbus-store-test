@@ -5,7 +5,9 @@ import { Product } from "types/product";
 
 // Fetch data from Fake Store API
 async function fetchProducts(limit: number): Promise<Product[]> {
-    const res = await fetch(`https://fakestoreapi.com/products?limit=${limit}`, { cache: 'no-store' });
+    const res = await fetch(`https://fakestoreapi.com/products?limit=${limit}`, {
+        next: { revalidate: 60 }, // Cache data selama 60 detik
+    });
     if (!res.ok) {
         throw new Error('Failed to fetch products');
     }
@@ -22,15 +24,8 @@ async function fetchTotalProductsCount(): Promise<number> {
 }
 
 async function getProducts(): Promise<{ products: Product[]; total: number }> {
-    // Fetch the products with a limit
-    const productsPromise = fetchProducts(12);
-
-    // Fetch the total count of products
-    const totalPromise = fetchTotalProductsCount();
-
-    // Wait for all promises to resolve
-    const [products, total] = await Promise.all([productsPromise, totalPromise]);
-
+    const products = await fetchProducts(12);
+    const total = await fetchTotalProductsCount();
     return { products, total };
 }
 
