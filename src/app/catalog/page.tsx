@@ -21,7 +21,7 @@ async function fetchTotalProductsCount(): Promise<number> {
     return products.length;
 }
 
-export async function getProducts(): Promise<{ products: Product[]; total: number }> {
+async function getProducts(): Promise<{ products: Product[]; total: number }> {
     // Fetch the products with a limit
     const productsPromise = fetchProducts(12);
 
