@@ -11,7 +11,7 @@ export default function CardProduct({ product }: CardProductProps) {
     return (
         <div className="flex flex-col justify-center items-center gap-4">
             <div className="h-full sm:h-80 flex items-center relative rounded-xl overflow-hidden">
-                <Image className="w-full h-full object-contain object-center" width={100} height={100} src={product.image} alt="" />
+                <Image className="w-full h-full object-contain object-center" width={60} height={60} src={product.image} alt="" />
             </div>
 
             <div className="flex-col justify-center items-center gap-3 flex">

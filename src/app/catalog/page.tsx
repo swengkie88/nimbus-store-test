@@ -4,22 +4,34 @@ import { Sidebar } from "@/components/Sidebar";
 import { Product } from "types/product";
 
 // Fetch data from Fake Store API
-async function getProducts(): Promise<{ products: Product[]; total: number }> {
-    // Fetch data with a limit
-    const res = await fetch(`https://fakestoreapi.com/products?limit=12`, { cache: 'no-store' });
+async function fetchProducts(limit: number): Promise<Product[]> {
+    const res = await fetch(`https://fakestoreapi.com/products?limit=${limit}`, { cache: 'no-store' });
     if (!res.ok) {
         throw new Error('Failed to fetch products');
     }
-    const products: Product[] = await res.json();
+    return res.json();
+}
 
-    // Fetch total data (optional: could also check headers like X-Total-Count)
-    const totalRes = await fetch(`https://fakestoreapi.com/products`, { cache: 'no-store' });
-    if (!totalRes.ok) {
+async function fetchTotalProductsCount(): Promise<number> {
+    const res = await fetch(`https://fakestoreapi.com/products`, { cache: 'no-store' });
+    if (!res.ok) {
         throw new Error('Failed to fetch total count');
     }
-    const totalProducts: Product[] = await totalRes.json();
+    const products: Product[] = await res.json();
+    return products.length;
+}
 
-    return { products, total: totalProducts.length };
+export async function getProducts(): Promise<{ products: Product[]; total: number }> {
+    // Fetch the products with a limit
+    const productsPromise = fetchProducts(12);
+
+    // Fetch the total count of products
+    const totalPromise = fetchTotalProductsCount();
+
+    // Wait for all promises to resolve
+    const [products, total] = await Promise.all([productsPromise, totalPromise]);
+
+    return { products, total };
 }
 
 export default async function Catalog() {
@@ -38,24 +50,16 @@ export default async function Catalog() {
                     <Sidebar />
                     <div className="flex flex-col justify-center items-end gap-3 sm:gap-6">
                         <div className="self-stretch justify-between items-center inline-flex">
-                            {/* <button className="inline-flex sm:hidden h-9 px-3 bg-slate-900 rounded-[40px] justify-center items-center gap-1.5">
-                            <div className="w-5 h-5 relative  overflow-hidden" />
-                            <div className="text-center text-slate-50 text-sm font-semibold font-['Instrument Sans'] leading-tight">Filter</div>
-                        </button> */}
                             <button type="button" className="sm:hidden py-2 px-3 inline-flex justify-center items-center gap-x-2 text-start bg-gray-800 border border-gray-800 text-white text-sm font-medium rounded-lg shadow-sm align-middle hover:bg-gray-950 focus:outline-none focus:bg-gray-900 dark:bg-white dark:text-neutral-800 dark:hover:bg-neutral-200 dark:focus:bg-neutral-200" aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-example" aria-label="Toggle navigation" data-hs-overlay="#hs-offcanvas-example">
                                 Filter
                             </button>
                             <div className="hidden sm:block text-slate-500 text-sm font-normal font-['Instrument Sans'] leading-tight">
                                 Menampilkan {products.length} dari {total} produk
                             </div>
-                            <select className="py-3 px-4 pe-9 block w-auto border border-slate-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                            <select className="py-2 px-3 pe-6 block w-auto border border-slate-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                 <option>Urutkan berdasarkan</option>
                                 <option>Terbaru</option>
                             </select>
-                            {/* <div className="w-[200px] h-9 px-3 py-2 bg-white rounded-md border border-slate-200 justify-between items-center inline-flex">
-                            <div className="text-slate-500 text-sm font-normal font-['Instrument Sans'] leading-tight">Urutkan Berdasarkan</div>
-                            <div className="w-4 h-4 relative opacity-50  overflow-hidden" />
-                        </div> */}
                         </div>
                         <div className="w-full h-full flex-col justify-center items-start gap-4 sm:gap-10 flex">
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 justify-center items-center">
