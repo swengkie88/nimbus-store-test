@@ -1,21 +1,13 @@
 import StarCheckbox from "./StarChecbox";
 
-async function getCategory() {
-    const res = await fetch(`https://fakestoreapi.com/products/categories`, { cache: 'no-store' });
-    if (!res.ok) {
-        throw new Error('Failed to fetch products');
-    }
-    const categories: string[] = await res.json();
+type SidebarProps = {
+    categories: string[];
+    selectedCategories: string[];
+    onCategoryChange: (category: string) => void;
+};
 
-    // const projects = await res.json()
-
-    // return projects
-    return categories;
-}
-
-export default async function SidebarContent() {
+export default function SidebarContent({ categories, selectedCategories, onCategoryChange }: SidebarProps) {
     const ratings = [5, 4, 3, 2, 1]; // Daftar level rating
-    const categories = await getCategory();
 
     return (
         <section className="flex flex-col gap-y-3">
@@ -30,7 +22,8 @@ export default async function SidebarContent() {
                             type="checkbox"
                             id={`cat-${index}`} // Membuat id unik untuk setiap input
                             className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                            defaultChecked
+                            checked={selectedCategories.includes(category)}
+                            onChange={() => onCategoryChange(category)}
                         />
                         <label
                             htmlFor={`cat-${index}`} // Pastikan htmlFor sesuai dengan id input
