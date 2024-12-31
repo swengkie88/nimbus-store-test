@@ -50,7 +50,7 @@ export default function Catalog({
                 onCategoryChange={handleCategoryChange}
             />
             <div className="container mx-auto">
-                <div className="flex flex-col self-stretch h-full sm:h-[220px] justify-start items-center gap-8 py-[20px]">
+                <div className="flex flex-col self-stretch h-full sm:h-[220px] justify-start items-center gap-8 pt-[60px] pb-[20px]">
                     <h2 className="self-stretch text-center text-slate-900 text-3xl md:text-4xl font-semibold font-['Instrument Sans'] leading-10">Katalog Produk</h2>
                     <input className="w-full sm:w-[480px] h-10 sm:h-12 px-6 py-4 bg-white rounded-[100px] border border-slate-300 justify-start items-center gap-[200px] inline-flex text-slate-500 text-base font-normal font-['Instrument Sans'] leading-normal" type="search" placeholder="Cari Produk" name="" id="" />
                 </div>
@@ -74,7 +74,7 @@ export default function Catalog({
                             </select>
                         </div>
                         <div className="w-full h-full flex flex-col justify-center items-start py-2 gap-4 sm:gap-10">
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 justify-center items-center">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-2 sm:gap-y-8 sm:gap-x-6 justify-center items-center">
                                 {filteredProducts.map((product) => (
                                     <CardProduct key={product.id} product={product} />
                                 ))}

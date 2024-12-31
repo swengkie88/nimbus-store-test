@@ -1,5 +1,6 @@
 'use client';
 
+import { User } from '@phosphor-icons/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,19 +15,31 @@ export const Header = () => {
     ];
 
     return (
-        <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white border-b border-slate-200 text-sm py-3 dark:bg-neutral-800">
+        <header className="flex flex-wrap fixed z-[999] sm:justify-start sm:flex-nowrap w-full bg-white border-b border-slate-200 text-sm py-3 dark:bg-neutral-800">
             <div className="container mx-auto sm:px-6">
                 <nav className="w-full mx-auto flex flex-wrap basis-full items-center justify-between relative">
                     <a className="lg:order-2 flex basis-full lg:basis-6/12 text-center justify-center text-slate-900 text-xl font-bold font-['Instrument Sans'] leading-7" href="#">Nimbus</a>
                     <div className="hidden lg:flex lg:basis-3/12 sm:order-3 justify-end">
                         <div className="justify-start items-center gap-2 flex">
-                            <div className="text-right text-slate-900 text-base font-medium font-['Instrument Sans'] leading-normal">Angki</div>
-                            <div className="w-5 h-5 relative  overflow-hidden" />
+                            <p className="text-right text-slate-900 text-base font-medium font-['Instrument Sans'] leading-normal">Angki</p>
+                            <Image
+                                className="dark:invert"
+                                src="/user.svg"
+                                alt="icon_user"
+                                width={24}
+                                height={24}
+                                priority
+                            />
                         </div>
                         <div className="w-5 h-5 relative  overflow-hidden" />
-                        <div className="h-3.5 pt-[3px] pb-px bg-red-500 rounded-[14px] justify-center items-center flex overflow-hidden">
-                            <div className="text-center text-white text-[10px] font-medium font-['DM Sans'] leading-[10px]">1</div>
-                        </div>
+                        <Image
+                            className="dark:invert"
+                            src="/icon_keranjang.svg"
+                            alt="Dummy keranjang"
+                            width={24}
+                            height={24}
+                            priority
+                        />
                     </div>
                     <div className="absolute right-4 top-0 lg:hidden">
                         <Image
@@ -45,13 +58,13 @@ export const Header = () => {
                             <span className="sr-only">Toggle</span>
                         </button>
                     </div>
-                    <div id="hs-navbar-alignment" className="flex basis-full justify-center lg:basis-3/12 hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow lg:grow-0 lg:block order-3 lg:order-1" aria-labelledby="hs-navbar-alignment-collapse">
-                        <div className="flex flex-col lg:flex-row">
+                    <div id="hs-navbar-alignment" className="pt-4 pb-20 sm:py-[0] flex basis-full justify-center lg:basis-3/12 hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow lg:grow-0 lg:block order-3 lg:order-1" aria-labelledby="hs-navbar-alignment-collapse">
+                        <div className="w-full flex flex-col lg:flex-row px-4">
                             {menuItems.map((item) => (
                                 <div
                                     key={item.href}
-                                    className={`p-1 border-b ${pathname === item.href ? 'border-slate-900' : 'border-transparent'
-                                        } justify-center items-center gap-2.5 flex`}
+                                    className={`p-1 py-2 sm:py-0 border-b ${pathname === item.href ? 'border-slate-900' : 'border-transparent'
+                                        } justify-start sm:justify-center items-center gap-2.5 flex`}
                                 >
                                     <Link
                                         className="text-center text-slate-900 text-base font-semibold font-['Instrument Sans'] leading-normal"
@@ -61,6 +74,17 @@ export const Header = () => {
                                     </Link>
                                 </div>
                             ))}
+                            <div className="justify-start items-center gap-2 flex absolute left-4 bottom-0 lg:hidden">
+                                <Image
+                                    className="dark:invert"
+                                    src="/user.svg"
+                                    alt="icon_user"
+                                    width={24}
+                                    height={24}
+                                    priority
+                                />
+                                <p className="text-right text-slate-900 text-base font-medium font-['Instrument Sans'] leading-normal">Angki</p>
+                            </div>
                         </div>
                         {/* <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
                             <a className="font-medium text-blue-500 focus:outline-none" href="#" aria-current="page">Landing</a>

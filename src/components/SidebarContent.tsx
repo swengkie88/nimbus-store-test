@@ -58,7 +58,7 @@ export default function SidebarContent({ categories, selectedCategories, onCateg
                         <div>
                             {/* <label htmlFor="hs-input-with-leading-and-trailing-icon" className="block text-sm font-medium mb-2 dark:text-white">Price</label> */}
                             <div className="relative">
-                                <input type="text" id="hs-input-with-leading-and-trailing-icon" name="hs-input-with-leading-and-trailing-icon" className="py-3 px-4 ps-10 pe-16 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="0.00" />
+                                <input type="number" id="hs-input-with-leading-and-trailing-icon" name="hs-input-with-leading-and-trailing-icon" className="py-3 px-4 ps-10 pe-4 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="0.00" />
                                 <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                                     <span className="text-gray-500 dark:text-neutral-500">Rp. </span>
                                 </div>
@@ -67,13 +67,13 @@ export default function SidebarContent({ categories, selectedCategories, onCateg
                     </div>
                     <div className="justify-start items-center gap-2 inline-flex">
                         <div className="w-4 h-4 relative opacity-50  overflow-hidden" />
-                        <div className="text-center text-slate-500 text-xs font-normal font-['Instrument Sans'] leading-none">Sampai dengan</div>
+                        <p className="text-center text-slate-500 text-xs font-normal font-['Instrument Sans'] leading-none">Sampai dengan</p>
                     </div>
                     <div className="max-w-sm space-y-3">
                         <div>
                             {/* <label htmlFor="hs-input-with-leading-and-trailing-icon" className="block text-sm font-medium mb-2 dark:text-white">Price</label> */}
                             <div className="relative">
-                                <input type="text" id="hs-input-with-leading-and-trailing-icon" name="hs-input-with-leading-and-trailing-icon" className="py-3 px-4 ps-10 pe-16 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="0.00" />
+                                <input type="number" id="hs-input-with-leading-and-trailing-icon" name="hs-input-with-leading-and-trailing-icon" className="py-3 px-4 ps-10 pe-4 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="0.00" />
                                 <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                                     <span className="text-gray-500 dark:text-neutral-500">Rp. </span>
                                 </div>
