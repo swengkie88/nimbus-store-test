@@ -21,11 +21,22 @@ async function fetchTotalProductsCount(): Promise<number> {
     return products.length;
 }
 
+async function fetchProductCategory() {
+    const res = await fetch(`https://fakestoreapi.com/products/categories`, { cache: 'no-store' });
+    if (!res.ok) {
+        throw new Error('Failed to fetch products');
+    }
+    const categories: string[] = await res.json();
+
+    return categories;
+}
+
+
 
 export default async function CatalogPage() {
     const products = await fetchProducts(12);
     const totalProducts = await fetchTotalProductsCount();
-    const categories = [...new Set(products.map((product) => product.category))];
+    const categories = await fetchProductCategory();
 
     return (
         <Catalog

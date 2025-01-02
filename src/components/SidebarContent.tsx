@@ -6,6 +6,10 @@ interface SidebarContentProps {
     selectedRatings: number[];
     onCategoryChange: (category: string) => void;
     handleRatingChange: (rating: number, isChecked: boolean) => void;
+    minPrice: number | null;
+    maxPrice: number | null;
+    setMinPrice: (price: number | null) => void;
+    setMaxPrice: (price: number | null) => void;
 }
 
 const SidebarContent: React.FC<SidebarContentProps> = ({
@@ -14,6 +18,10 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
     selectedRatings,
     onCategoryChange,
     handleRatingChange,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
 }) => {
     const ratings = [5, 4, 3, 2, 1]; // Daftar level rating
 
@@ -67,9 +75,17 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                         <div>
                             {/* <label htmlFor="hs-input-with-leading-and-trailing-icon" className="block text-sm font-medium mb-2 dark:text-white">Price</label> */}
                             <div className="relative">
-                                <input type="number" id="hs-input-with-leading-and-trailing-icon" name="hs-input-with-leading-and-trailing-icon" className="py-3 px-4 ps-10 pe-4 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="0.00" />
+                                <input
+                                    type="number"
+                                    id="min-price"
+                                    name="min-price"
+                                    className="py-3 px-4 ps-10 pe-4 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                    placeholder="Harga Minimum"
+                                    value={minPrice ?? ""}
+                                    onChange={(e) => setMinPrice(e.target.value ? parseFloat(e.target.value) : null)}
+                                />
                                 <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-                                    <span className="text-gray-500 dark:text-neutral-500">Rp. </span>
+                                    <span className="text-gray-500 dark:text-neutral-500">$ </span>
                                 </div>
                             </div>
                         </div>
@@ -82,9 +98,17 @@ const SidebarContent: React.FC<SidebarContentProps> = ({
                         <div>
                             {/* <label htmlFor="hs-input-with-leading-and-trailing-icon" className="block text-sm font-medium mb-2 dark:text-white">Price</label> */}
                             <div className="relative">
-                                <input type="number" id="hs-input-with-leading-and-trailing-icon" name="hs-input-with-leading-and-trailing-icon" className="py-3 px-4 ps-10 pe-4 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="0.00" />
+                                <input
+                                    type="number"
+                                    id="max-price"
+                                    name="max-price"
+                                    className="py-3 px-4 ps-10 pe-4 block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                    placeholder="Harga Maksimum"
+                                    value={maxPrice ?? ""}
+                                    onChange={(e) => setMaxPrice(e.target.value ? parseFloat(e.target.value) : null)}
+                                />
                                 <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
-                                    <span className="text-gray-500 dark:text-neutral-500">Rp. </span>
+                                    <span className="text-gray-500 dark:text-neutral-500">$ </span>
                                 </div>
                             </div>
                         </div>

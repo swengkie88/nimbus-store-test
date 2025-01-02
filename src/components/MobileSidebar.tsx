@@ -6,6 +6,10 @@ interface MobileSidebarProps {
     selectedRatings: number[];
     onCategoryChange: (category: string) => void;
     handleRatingChange: (rating: number, isChecked: boolean) => void;
+    minPrice: number | null;
+    maxPrice: number | null;
+    setMinPrice: (price: number | null) => void;
+    setMaxPrice: (price: number | null) => void;
 }
 
 
@@ -15,6 +19,10 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
     selectedRatings,
     onCategoryChange,
     handleRatingChange,
+    minPrice, 
+    maxPrice, 
+    setMinPrice, 
+    setMaxPrice
 }) => {
 
 
@@ -27,6 +35,10 @@ const MobileSidebar: React.FC<MobileSidebarProps> = ({
                     handleRatingChange={handleRatingChange}
                     selectedCategories={selectedCategories}
                     onCategoryChange={onCategoryChange}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                    setMinPrice={setMinPrice}
+                    setMaxPrice={setMaxPrice}
                 />
             </nav>
         </div>
