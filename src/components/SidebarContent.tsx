@@ -1,12 +1,20 @@
 import StarCheckbox from "./StarChecbox";
 
-type SidebarProps = {
+interface SidebarContentProps {
     categories: string[];
     selectedCategories: string[];
+    selectedRatings: number[];
     onCategoryChange: (category: string) => void;
-};
+    handleRatingChange: (rating: number, isChecked: boolean) => void;
+}
 
-export default function SidebarContent({ categories, selectedCategories, onCategoryChange }: SidebarProps) {
+const SidebarContent: React.FC<SidebarContentProps> = ({
+    categories,
+    selectedCategories,
+    selectedRatings,
+    onCategoryChange,
+    handleRatingChange,
+}) => {
     const ratings = [5, 4, 3, 2, 1]; // Daftar level rating
 
     return (
@@ -20,19 +28,20 @@ export default function SidebarContent({ categories, selectedCategories, onCateg
                     >
                         <input
                             type="checkbox"
-                            id={`cat-${index}`} // Membuat id unik untuk setiap input
-                            className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                            checked={selectedCategories.includes(category)}
-                            onChange={() => onCategoryChange(category)}
+                            id={`cat-${index}`} // ID unik untuk setiap input
+                            className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500"
+                            checked={selectedCategories.includes(category)} // Sesuai dengan `selectedCategories`
+                            onChange={() => onCategoryChange(category)} // Memanggil fungsi `handleCategoryChange`
                         />
                         <label
-                            htmlFor={`cat-${index}`} // Pastikan htmlFor sesuai dengan id input
-                            className="text-center text-slate-900 text-sm font-normal font-['Instrument Sans'] leading-tight"
+                            htmlFor={`cat-${index}`} // Pastikan sesuai dengan ID input
+                            className="text-center text-slate-900 text-sm font-normal"
                         >
                             {category}
                         </label>
                     </div>
                 ))}
+
 
             </div>
             <div className="self-stretch h-px bg-slate-200" />
@@ -42,10 +51,10 @@ export default function SidebarContent({ categories, selectedCategories, onCateg
                     {ratings.map((rating) => (
                         <StarCheckbox
                             key={rating}
-                            id={`star-checkbox-${rating}`}
+                            id={`rating-${rating}`}
                             rating={rating}
-                            defaultChecked={false}
-                            size={24}
+                            defaultChecked={selectedRatings.includes(rating)}
+                            onChange={(isChecked) => handleRatingChange(rating, isChecked)}
                         />
                     ))}
                 </div>
@@ -85,3 +94,5 @@ export default function SidebarContent({ categories, selectedCategories, onCateg
         </section>
     )
 }
+
+export default SidebarContent;

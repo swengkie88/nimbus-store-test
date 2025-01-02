@@ -15,7 +15,7 @@ export const Header = () => {
 
     return (
         <header className="flex flex-wrap fixed z-[999] sm:justify-start sm:flex-nowrap w-full bg-white border-b border-slate-200 text-sm py-3 dark:bg-neutral-800">
-            <div className="container mx-auto sm:px-6">
+            <div className="container mx-auto md:px-6 lg:px-4">
                 <nav className="w-full mx-auto flex flex-wrap basis-full items-center justify-between relative">
                     <a className="lg:order-2 flex basis-full lg:basis-6/12 text-center justify-center text-slate-900 text-xl font-bold font-['Instrument Sans'] leading-7" href="#">Nimbus</a>
                     <div className="hidden lg:flex lg:basis-3/12 sm:order-3 justify-end">

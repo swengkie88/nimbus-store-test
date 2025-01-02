@@ -1,7 +1,7 @@
 "use client";
 
 import CardProduct from "@/components/CardProduct";
-import { MobileSidebar } from "@/components/MobileSidebar";
+import MobileSidebar from "@/components/MobileSidebar";
 import { Sidebar } from "@/components/Sidebar";
 import { useEffect, useState } from "react";
 import { Product } from "types/product";
@@ -17,35 +17,55 @@ export default function Catalog({
     totalProducts,
     categories,
 }: CatalogProps) {
-    const [selectedCategories, setSelectedCategories] = useState<string[]>(categories);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Default kosong
+    const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>(initialProducts);
 
     const handleCategoryChange = (category: string) => {
-        setSelectedCategories((prev) =>
-            prev.includes(category)
+        setSelectedCategories((prev) => {
+            const updatedCategories = prev.includes(category)
                 ? prev.filter((cat) => cat !== category) // Hapus kategori jika sudah ada
-                : [...prev, category] // Tambahkan kategori jika belum ada
+                : [...prev, category]; // Tambahkan kategori jika belum ada
+            return updatedCategories;
+        });
+    };
+
+
+    const handleRatingChange = (rating: number, isChecked: boolean) => {
+        setSelectedRatings((prev) =>
+            isChecked
+                ? [...prev, rating] // Tambahkan rating ke daftar
+                : prev.filter((r) => r !== rating) // Hapus rating dari daftar
         );
     };
 
     useEffect(() => {
-        if (selectedCategories.length === 0) {
-            // Jika tidak ada kategori yang dipilih, tampilkan semua produk
-            setFilteredProducts(initialProducts);
-        } else {
-            // Filter produk berdasarkan kategori yang dipilih
-            setFilteredProducts(
-                initialProducts.filter((product) =>
-                    selectedCategories.includes(product.category)
-                )
+        let products = initialProducts;
+
+        // Filter berdasarkan kategori
+        if (selectedCategories.length > 0) {
+            products = products.filter((product) =>
+                selectedCategories.includes(product.category)
             );
         }
-    }, [selectedCategories, initialProducts]);
+
+        // Filter berdasarkan rating (hanya jika ada rating yang dipilih)
+        if (selectedRatings.length > 0) {
+            products = products.filter((product) =>
+                selectedRatings.includes(Math.floor(product.rating.rate)) // Cocokkan rating secara eksak
+            );
+        }
+
+        // Jika tidak ada rating yang dipilih, tampilkan semua produk
+        setFilteredProducts(products);
+    }, [selectedCategories, selectedRatings, initialProducts]);
 
     return (
         <div className="h-full w-full px-4 sm:px-10 py-[30px] sm:py-[60px] flex-col justify-center items-center gap-[20px] sm:gap-[60px] inline-flex overflow-hidden">
             <MobileSidebar
                 categories={categories}
+                selectedRatings={selectedRatings}
+                handleRatingChange={handleRatingChange}
                 selectedCategories={selectedCategories}
                 onCategoryChange={handleCategoryChange}
             />
@@ -57,6 +77,8 @@ export default function Catalog({
                 <div className="w-full h-full sm:flex justify-center items-start gap-8 sm:gap-10">
                     <Sidebar
                         categories={categories}
+                        selectedRatings={selectedRatings}
+                        handleRatingChange={handleRatingChange}
                         selectedCategories={selectedCategories}
                         onCategoryChange={handleCategoryChange}
                     />
@@ -75,9 +97,17 @@ export default function Catalog({
                         </div>
                         <div className="w-full h-full flex flex-col justify-center items-start py-2 gap-4 sm:gap-10">
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 gap-x-2 sm:gap-y-8 sm:gap-x-6 justify-center items-center">
-                                {filteredProducts.map((product) => (
-                                    <CardProduct key={product.id} product={product} />
-                                ))}
+                                {filteredProducts.length > 0 ? (
+                                    filteredProducts.map((product) => (
+                                        <CardProduct key={product.id} product={product} />
+                                    ))
+                                ) : (
+                                    <div className="min-w-full col-span-2 flex text-left text-gray-500">
+                                        <p>
+                                            Data produk tidak ditemukan, sesuaikan ulang filter atau kata kunci pencarian.
+                                        </p>
+                                    </div>
+                                )}
                             </div>
                             <section className="w-full pagination">
                                 <div className="flex justify-center items-center gap-2">

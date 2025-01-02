@@ -1,12 +1,21 @@
 import SidebarContent from "./SidebarContent";
 
-type MobileSidebarProps = {
+interface MobileSidebarProps {
     categories: string[];
     selectedCategories: string[];
+    selectedRatings: number[];
     onCategoryChange: (category: string) => void;
-};
+    handleRatingChange: (rating: number, isChecked: boolean) => void;
+}
 
-export const MobileSidebar = ({ categories, selectedCategories, onCategoryChange }: MobileSidebarProps) => {
+
+const MobileSidebar: React.FC<MobileSidebarProps> = ({
+    categories,
+    selectedCategories,
+    selectedRatings,
+    onCategoryChange,
+    handleRatingChange,
+}) => {
 
 
     return (
@@ -14,6 +23,8 @@ export const MobileSidebar = ({ categories, selectedCategories, onCategoryChange
             <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                 <SidebarContent
                     categories={categories}
+                    selectedRatings={selectedRatings}
+                    handleRatingChange={handleRatingChange}
                     selectedCategories={selectedCategories}
                     onCategoryChange={onCategoryChange}
                 />
@@ -21,3 +32,5 @@ export const MobileSidebar = ({ categories, selectedCategories, onCategoryChange
         </div>
     )
 }
+
+export default MobileSidebar;
