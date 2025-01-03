@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 // import '@/styles/global.css';
 import PrelineScript from "@/components/PrelineScript";
+import { Footer } from "@/components/Footer";
 
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
+  subsets: ["latin"],
+});
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,6 +37,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
       <PrelineScript />
     </html>
